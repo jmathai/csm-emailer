@@ -18,9 +18,9 @@ exports.handler = function(event, context) {
 	response.setContext(context);
   response.setHeader('Access-Control-Allow-Origin', 'csmforchrist.com');
   var body = "Someone subscribed to receive education\n\n" +
-             event.post['fname'] + "\n" +
-             event.post['lname'] + "\n" +
-             event.post['email'] + "\n";
+             event.post['FNAME'] + "\n" +
+             event.post['LNAME'] + "\n" +
+             event.post['EMAIL'] + "\n";
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   var msg = {
