@@ -4,6 +4,7 @@
   "description": "Boilerplate template for creating joules.",
   "main": "index.js",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "joule-node-response": "<2.0.0"
   },
   "devDependencies": {

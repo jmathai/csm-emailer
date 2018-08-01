@@ -11,17 +11,25 @@
  *    event.{queryStringParam}, Query string parameters as defined in your .joule.yml
  */
 var Response = require('joule-node-response');
+var sgMail = require('@sendgrid/mail');
 
 exports.handler = function(event, context) {
 	var response = new Response();
 	response.setContext(context);
+  response.setHeader('Access-Control-Allow-Origin', 'csmforchrist.com');
+  var body = "Someone subscribed to receive education\n\n" +
+             event.post['fname'] + "\n" +
+             event.post['lname'] + "\n" +
+             event.post['email'] + "\n";
 
-  var name = event.query['name'] || 'World';
-  var greeting = 'Hello, ' + name + '.';
-
-  var result = {
-    "message": greeting
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  var msg = {
+    to: 'jaisen@jmathai.com',
+    from: 'jaisen@jmathai.com',
+    subject: 'New CSM subscriber for education',
+    text: body
   };
-  
-  response.send(result);
+  sgMail.send(msg, function(error, success) {
+    response.send(error || success);
+  });
 };
