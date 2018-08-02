@@ -6,3 +6,6 @@ methods:
   POST:
     status_codes:
       - 200
+  OPTIONS:
+    status_codes:
+      - 200
