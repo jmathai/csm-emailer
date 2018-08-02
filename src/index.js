@@ -16,6 +16,7 @@ var sgMail = require('@sendgrid/mail');
 exports.handler = function(event, context) {
 	var response = new Response();
 	response.setContext(context);
+  response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   response.setHeader('Access-Control-Allow-Origin', 'csmforchrist.com');
   var body = "Someone subscribed to receive education\n\n" +
              event.post['FNAME'] + "\n" +
