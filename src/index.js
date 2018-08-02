@@ -17,24 +17,20 @@ exports.handler = function(event, context) {
 	var response = new Response();
 	response.setContext(context);
   response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  response.setHeader('Access-Control-Allow-Origin', 'csmforchrist.com');
-  if(event.httpMethod == 'POST') {
-    var body = "Someone subscribed to receive education\n\n" +
-               event.post['FNAME'] + "\n" +
-               event.post['LNAME'] + "\n" +
-               event.post['EMAIL'] + "\n";
+  response.setHeader('Access-Control-Allow-Origin', '*');
+  var body = "Someone subscribed to receive education\n\n" +
+             event.post['FNAME'] + "\n" +
+             event.post['LNAME'] + "\n" +
+             event.post['EMAIL'] + "\n";
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    var msg = {
-      to: 'jaisen@jmathai.com',
-      from: 'jaisen@jmathai.com',
-      subject: 'New CSM subscriber for education',
-      text: body
-    };
-    sgMail.send(msg, function(error, success) {
-      response.send(error || success);
-    });
-  } else {
-    response.send('Got it');
-  }
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  var msg = {
+    to: 'jaisen@jmathai.com',
+    from: 'jaisen@jmathai.com',
+    subject: 'New CSM subscriber for education',
+    text: body
+  };
+  sgMail.send(msg, function(error, success) {
+    response.send(error || success);
+  });
 };
